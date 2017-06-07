@@ -6,7 +6,7 @@
   </welcome-file-list>
   <servlet>
 		<servlet-name>UWSServletExample</servlet-name>
-		<servlet-class>MyUWSServlet</servlet-class>
+		<servlet-class>vospace.MyUWSServlet</servlet-class>
 		<init-param>
 			<param-name>name</param-name>
 			<param-value>example</param-value>

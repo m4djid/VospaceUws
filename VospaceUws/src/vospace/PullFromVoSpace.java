@@ -17,7 +17,14 @@ public class PullFromVoSpace extends JobThread {
 
 	@Override
 	protected void jobWork() throws UWSException, InterruptedException {
-		String nodePath = (String) getJob().getAdditionalParameterValue("target");
+		String nodePath = "Path de la node";
+		int count = 0;
+		int executionTime = (int)getJob().getAdditionalParameterValue("time");
+		
+		while(!isInterrupted() && count < executionTime){
+			Thread.sleep(1000);
+			count++;
+		}
 		
 		if (isInterrupted())
 			throw new InterruptedException();
@@ -26,7 +33,7 @@ public class PullFromVoSpace extends JobThread {
 			Result result = createResult("Report");	
 			
 			BufferedOutputStream output = new BufferedOutputStream(getResultOutput(result));
-			output.write((nodePath).getBytes("ISO-8859-1"));
+			output.write((nodePath + "time : " + executionTime).getBytes("ISO-8859-1"));
 			output.close();
 
 			publishResult(result);
@@ -35,6 +42,7 @@ public class PullFromVoSpace extends JobThread {
 			throw new UWSException(UWSException.INTERNAL_SERVER_ERROR, e, "Impossible to write the result file of the Job " + job.getJobId() + " !", ErrorType.TRANSIENT);
 		}
 	}
+
 
 	
 	
