@@ -17,14 +17,16 @@ import uws.job.user.JobOwner;
 import uws.service.UWSServlet;
 import uws.service.UWSUrl;
 
-public class MyUWSServlet extends UWSServlet {
+public class AsyncServlet extends UWSServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	public void initUWS() throws UWSException{
-		addJobList(new JobList("PullFromVoSpace"));
+		addJobList(new JobList("trans"));
 		addExpectedAdditionalParameter("time");
+		addExpectedAdditionalParameter("direction");
 		addExpectedAdditionalParameter("target");
+		addExpectedAdditionalParameter("securitymethod");
 		setInputParamController("time", new InputParamController(){
 			@Override
 			public Object getDefault(){
@@ -71,10 +73,57 @@ public class MyUWSServlet extends UWSServlet {
 			public Object check(Object val) throws UWSException {
 				String target;
 				if (val instanceof String) {
-					target = (String)val;
+					target = ((String)val).toString();
 				}
-				else
+				else {
 					throw new UWSException(UWSException.BAD_REQUEST, "Wrong \"target\" type: a string is expected!");
+				}
+				return target;
+			}
+		});
+		setInputParamController("direction", new InputParamController(){
+			@Override
+			public Object getDefault(){
+				return "None";
+			}
+
+			@Override
+			public boolean allowModification() {
+				return false;
+			}
+
+			@Override
+			public Object check(Object val) throws UWSException {
+				String target;
+				if (val instanceof String) {
+					target = ((String)val).toString();
+				}
+				else {
+					throw new UWSException(UWSException.BAD_REQUEST, "Wrong \"target\" type: a string is expected!");
+				}
+				return target;
+			}
+		});
+		setInputParamController("securitymethod", new InputParamController(){
+			@Override
+			public Object getDefault(){
+				return "None";
+			}
+
+			@Override
+			public boolean allowModification() {
+				return false;
+			}
+
+			@Override
+			public Object check(Object val) throws UWSException {
+				String target;
+				if (val instanceof String) {
+					target = ((String)val).toString();
+				}
+				else {
+					throw new UWSException(UWSException.BAD_REQUEST, "Wrong \"target\" type: a string is expected!");
+				}
 				return target;
 			}
 		});
@@ -82,13 +131,17 @@ public class MyUWSServlet extends UWSServlet {
 
 	@Override
 	public JobThread createJobThread(UWSJob job) throws UWSException{
-		if (job.getJobList().getName().equals("PullFromVoSpace"))
+		/*if (job.getJobList().getName().equals("PullFromVoSpace"))
+			return new PullFromVoSpace(job);*/
+		if (job.getParameter("direction").equals("PullFromVoSpace"))
 			return new PullFromVoSpace(job);
+		/*else if (job.getJobList().getName().equals("PushToVoSpace"))
+			return new PushToVoSpace(job);*/
 		else
 			throw new UWSException("Impossible to create a job inside the jobs list \"" + job.getJobList().getName() + "\" !");
 	}
 	
-	@Override
+	/*@Override
 	protected void writeHomePage(UWSUrl requestUrl, HttpServletRequest req, HttpServletResponse resp, JobOwner user) throws UWSException, ServletException, IOException{
 		PrintWriter out = resp.getWriter();
 
@@ -102,7 +155,7 @@ public class MyUWSServlet extends UWSServlet {
 			out.println("<li>" + jl.getName() + " - " + jl.getNbJobs() + " jobs - <a href=\"" + requestUrl.listJobs(jl.getName()) + "\">" + requestUrl.listJobs(jl.getName()) + "</a></li>");
 		}
 		out.println("</ul>");
-	}
+	}*/
 
 
 }

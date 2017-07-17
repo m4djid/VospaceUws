@@ -5,15 +5,23 @@
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
   <servlet>
-		<servlet-name>UWSServletExample</servlet-name>
-		<servlet-class>vospace.MyUWSServlet</servlet-class>
-		<init-param>
-			<param-name>name</param-name>
-			<param-value>example</param-value>
-		</init-param>
+		<servlet-name>AsyncServlet</servlet-name>
+		<servlet-class>vospace.AsyncServlet</servlet-class>
+<!-- 		<init-param> -->
+<!-- 			<param-name>name</param-name> -->
+<!-- 			<param-value>example</param-value> -->
+<!-- 		</init-param> -->
+	</servlet>
+	<servlet>
+		<servlet-name>SyncServlet</servlet-name>
+		<servlet-class>vospace.SyncServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>UWSServletExample</servlet-name>
-		<url-pattern>/example/*</url-pattern>
+		<servlet-name>AsyncServlet</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SyncServlet</servlet-name>
+		<url-pattern>/synctrans/*</url-pattern>
 	</servlet-mapping>
 </web-app>
