@@ -17,12 +17,12 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/Users/Madjid/Documents/workspace/javax.servlet.jar"/>
-	<classpathentry kind="lib" path="/Users/Madjid/Documents/workspace/uws4.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/Madjid/Desktop/SERFA/taplib.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

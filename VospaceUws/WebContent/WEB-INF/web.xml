@@ -12,16 +12,16 @@
 <!-- 			<param-value>example</param-value> -->
 <!-- 		</init-param> -->
 	</servlet>
-	<servlet>
+<!-- 	<servlet>
 		<servlet-name>SyncServlet</servlet-name>
 		<servlet-class>vospace.SyncServlet</servlet-class>
-	</servlet>
+	</servlet> -->
 	<servlet-mapping>
 		<servlet-name>AsyncServlet</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
+	<!-- <servlet-mapping>
 		<servlet-name>SyncServlet</servlet-name>
 		<url-pattern>/synctrans/*</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
 </web-app>

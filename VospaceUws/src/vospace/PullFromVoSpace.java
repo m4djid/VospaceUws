@@ -21,17 +21,27 @@ public class PullFromVoSpace extends JobThread {
 
 	@Override
 	protected void jobWork() throws UWSException, InterruptedException {
-		String nodePath = (String)getJob().getAdditionalParameterValue("target");
+		VoCore vo = new VoCore();
+		String target = (String)getJob().getAdditionalParameterValue("target");
 		String direction = (String)getJob().getAdditionalParameterValue("direction");
-		String securityMethode = (String)getJob().getAdditionalParameterValue("securitymethod");
-		int count = 0;
-		int executionTime = (int)getJob().getAdditionalParameterValue("time");
+		String securityMethod = (String)getJob().getAdditionalParameterValue("securitymethod");
+		String keepBytes = (String)getJob().getAdditionalParameterValue("KeepBytes");
+		String jobtype = (String)getJob().getAdditionalParameterValue(getName());
+		vo.setTarget(target);
+		vo.setDirection(direction);
+		vo.setSecurity(securityMethod);
+		vo.setKeepbytes(keepBytes);
 		
-		/*while(!isInterrupted() && count < executionTime){
-			Thread.sleep(1000);
-			count++;
-			System.out.println(count);
-		}*/
+		Mydb vodb = new Mydb();
+		System.out.println(vodb.getNode());
+		System.out.println("Job : "+jobtype);
+		System.out.println("Target : "+vo.getTarget());
+		System.out.println("Direction : "+vo.getDirection());
+		System.out.println("Securité : "+vo.getSecurity());
+		System.out.println("KeepBytes : "+vo.getKeepbytes());
+		System.out.println("Done for job #"+getJob().getJobId());
+			
+		
 		if (isInterrupted())
 			throw new InterruptedException();
 		

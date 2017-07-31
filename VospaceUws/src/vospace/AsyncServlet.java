@@ -94,16 +94,41 @@ public class AsyncServlet extends UWSServlet {
 
 			@Override
 			public Object check(Object val) throws UWSException {
-				String target;
+				String direction;
 				if (val instanceof String) {
-					target = ((String)val).toString();
+					direction = ((String)val).toString();
 				}
 				else {
-					throw new UWSException(UWSException.BAD_REQUEST, "Wrong \"target\" type: a string is expected!");
+					throw new UWSException(UWSException.BAD_REQUEST, "Wrong \"direction\" type: a string is expected!");
 				}
-				return target;
+				return direction;
 			}
 		});
+		
+		setInputParamController("protocol", new InputParamController(){
+			@Override
+			public Object getDefault(){
+				return "None";
+			}
+
+			@Override
+			public boolean allowModification() {
+				return false;
+			}
+
+			@Override
+			public Object check(Object val) throws UWSException {
+				String protocol;
+				if (val instanceof String) {
+					protocol = ((String)val).toString();
+				}
+				else {
+					throw new UWSException(UWSException.BAD_REQUEST, "Wrong \"protocol\" type: a string is expected!");
+				}
+				return protocol;
+			}
+		});
+		
 		setInputParamController("securitymethod", new InputParamController(){
 			@Override
 			public Object getDefault(){
@@ -117,23 +142,55 @@ public class AsyncServlet extends UWSServlet {
 
 			@Override
 			public Object check(Object val) throws UWSException {
-				String target;
+				String securitymethod;
 				if (val instanceof String) {
-					target = ((String)val).toString();
+					securitymethod = ((String)val).toString();
 				}
 				else {
-					throw new UWSException(UWSException.BAD_REQUEST, "Wrong \"target\" type: a string is expected!");
+					throw new UWSException(UWSException.BAD_REQUEST, "Wrong \"securitymethod\" type: a string is expected!");
 				}
-				return target;
+				return securitymethod;
 			}
 		});
+		
+		setInputParamController("keepBytes", new InputParamController(){
+			@Override
+			public Object getDefault(){
+				return "False";
+			}
+
+			@Override
+			public boolean allowModification() {
+				return false;
+			}
+
+			@Override
+			public Object check(Object val) throws UWSException {
+				String keepBytes;
+				if (val instanceof String) {
+					keepBytes = ((String)val).toString();
+					if(keepBytes == "false" || keepBytes == "False" || keepBytes == "true" || keepBytes == "True"){
+						
+					}
+					else {
+						throw new UWSException(UWSException.BAD_REQUEST, "Wrong \"KeepBytes\" value: True/true or False/false is expected!");
+					}
+						
+				}
+				else {
+					throw new UWSException(UWSException.BAD_REQUEST, "Wrong \"KeepBytes\" type: a string is expected!");
+				}
+				return keepBytes;
+			}
+		});
+	
 	}
 
 	@Override
 	public JobThread createJobThread(UWSJob job) throws UWSException{
 		/*if (job.getJobList().getName().equals("PullFromVoSpace"))
 			return new PullFromVoSpace(job);*/
-		if (job.getParameter("direction").equals("PullFromVoSpace"))
+		if (job.getAdditionalParameterValue("direction").equals("PullFromVoSpace"))
 			return new PullFromVoSpace(job);
 		/*else if (job.getJobList().getName().equals("PushToVoSpace"))
 			return new PushToVoSpace(job);*/
